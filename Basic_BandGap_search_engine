@@ -1,0 +1,12 @@
+from pymatgen.ext.matproj import MPRester
+from pymatgen.electronic_structure.plotter import BSDOSPlotter
+
+mpr = MPRester("Insert API key here!")
+
+material_id = input("Enter your material ID: ")
+
+bs = mpr.get_bandstructure_by_material_id(material_id)
+dos = mpr.get_dos_by_material_id(material_id)
+
+bsp = BSDOSPlotter()
+ax_bs, ax_dos = bsp.get_plot(bs,dos)
