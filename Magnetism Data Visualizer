@@ -1,0 +1,73 @@
+from pymatgen.ext.matproj import MagnetismRester
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+mpr = MagnetismRester("API KEY HERE")
+
+material_id = input("Enter your material ID: ")
+
+mag_max = mpr.get_total_magnetization_max_by_material_id(material_id)
+mag_min = mpr.get_total_magnetization_min_by_material_id(material_id)
+
+print(f"{mag_max} is the total maximum magnetization of {material_id}")
+print(f"{mag_min} is the total minimum magnetization of {material_id}")
+
+material_id_2 = input("Enter your second material ID: ")
+
+mag_max_2 = mpr.get_total_magnetization_max_by_material_id(material_id_2)
+mag_min_2 = mpr.get_total_magnetization_min_by_material_id(material_id_2)
+
+print(f"{mag_max_2} is the total maximum magnetization of {material_id_2}")
+print(f"{mag_min_2} is the total minimum magnetization of {material_id_2}")
+
+material_id_3 = input("Enter your third material ID: ")
+
+mag_max_3 = mpr.get_total_magnetization_max_by_material_id(material_id_3)
+mag_min_3 = mpr.get_total_magnetization_min_by_material_id(material_id_3)
+
+print(f"{mag_max_3} is the total maximum magnetization of {material_id_3}.")
+print(f"{mag_min_3} is the total minimum magnetization of {material_id_3}.")
+
+material_id_4 = input("Enter your fourth material ID: ")
+
+mag_max_4 = mpr.get_total_magnetization_max_by_material_id(material_id_4)
+mag_min_4 = mpr.get_total_magnetization_min_by_material_id(material_id_4)
+
+print(f"{mag_max_4} is the total maximum magnetization of {material_id_4}.")
+print(f"{mag_min_4} is the total minimum magnetization of {material_id_4}.")
+
+mag_max1234 = [mag_max,mag_max_2,mag_max_3,mag_max_4]
+mag_min1234 = [mag_min,mag_min_2,mag_min_3,mag_min_4]
+material_id1234 = [material_id,material_id_2,material_id_3,material_id_4]
+
+data = {
+    "material id": material_id1234,
+    "maximum magnetism (A/m)": mag_max1234,
+    "minimum magnetism (A/m)": mag_min1234,
+}
+
+df = pd.DataFrame(data)
+
+print(df)
+
+x = np.arange(len(material_id1234)) 
+width = 0.35
+
+fig, ax = plt.subplots(figsize=(10, 6)) 
+
+rects1 = ax.bar(x - width/2, mag_max1234, width, label='Max Magnetism', color='skyblue')
+
+rects2 = ax.bar(x + width/2, mag_min1234, width, label='Min Magnetism', color='lightcoral')
+
+ax.set_ylabel('Magnetism (A/m)')
+ax.set_xlabel('Material ID')
+ax.set_title('Maximum and Minimum Magnetism by Material ID')
+ax.set_xticks(x)
+ax.set_xticklabels(material_id1234)
+ax.legend()
+
+fig.tight_layout()
+
+plt.show()
